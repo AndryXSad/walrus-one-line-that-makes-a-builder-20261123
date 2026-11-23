@@ -16,6 +16,12 @@ LINE = (
 
 
 def main() -> None:
+    # Self-check the gate before writing: 1 to 240 UTF-8 characters,
+    # not only white space, exactly one sentence.
+    if not 1 <= len(LINE) <= 240 or not LINE.strip():
+        raise SystemExit("entry line fails the 1-240 character gate")
+    if LINE.count(".") != 2:  # one in "make.fun", one ending the sentence
+        raise SystemExit("entry line must be exactly one sentence")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
